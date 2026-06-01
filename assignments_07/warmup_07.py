@@ -637,9 +637,13 @@ answer_with_agent = run_agent('Convert 100 degrees Celsius to Fahrenheit')
 print(answer_with_agent)
 # Was your prediction correct?
 # Yes, the tool call was triggered as expected and two API calls were made.
-# However, since run_agent only dispatches get_current_time at this point,
-# celsius_to_fahrenheit was never actually executed as a Python function.
-# The model answered correctly using its internal knowledge instead.
+# First call: the model received the prompt, saw celsius_to_fahrenheit in the schema,
+# and requested it as a tool call.
+# Second call: run_agent at this point only dispatches get_current_time, so
+# celsius_to_fahrenheit was never executed as a Python function. However, the
+# tool_call message was already appended to the history, so a second API call
+# was made for the model to generate the final answer — which it did correctly
+# using its internal knowledge.
 
 # Q3
 response_a = run_agent("What is 37 degrees Celsius in Fahrenheit?")
