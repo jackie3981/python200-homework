@@ -51,15 +51,6 @@ on transform's output, Prefect marks the flow as failed without proceeding to de
 # --- Production Patterns ---
 # Production Question 1
 """
-raise_for_status() lanza una excepción HTTPError si el código es 400 o 500.
-Con if + print: la tarea sigue ejecutándose con datos malos, se marca como Completed,
-y las tareas downstream corren con datos corruptos.
-
-Con raise_for_status(): la tarea se marca como Failed, las tareas downstream NO corren,
-y el pipeline falla de forma visible en la UI.
-
-El principio del fichero: "visible failures are safer than silent corruption".
-
 What raise_for_status() does:
 raise_for_status() checks the HTTP response status code. If the code is 400 or higher, it raises a requests.exceptions.HTTPError 
 exception. If the code is 200-399 (success), it does nothing and the pipeline continues.
