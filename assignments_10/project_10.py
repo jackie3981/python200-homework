@@ -44,7 +44,11 @@ def authentication():
 
 def load_fallback_data():
     '''Load fallback weather data from a previous assignment if today's blob is not found'''
+    # Path suggested by assignment instructions (requires file to exist in repo)
+    # fallback_path = os.path.join(os.path.dirname(BASE_DIR), 'assignments', 'resources', 'weather_raw.json')
     fallback_path = os.path.join(os.path.dirname(BASE_DIR), 'assignments_09/outputs/weather_raw.json')  
+
+   
     with open(fallback_path, 'r') as f:
         data = json.load(f)
     return data
@@ -115,9 +119,8 @@ def upload_data(container, enriched):
 # Step 4: Spot-Check
 def data_check(container):
     '''
-    Download raw weather data for today from Azure Blob Storage and reshape
-    the hourly parallel lists into a list of per-hour record dictionaries.
-    Falls back to a local file if today's blob is not found.
+    Download the processed weather data from Azure Blob Storage 
+    and print label distribution and first 5 rows for spot-checking.
     '''
     processed_data = container.download_blob(processed_path).readall()
     enriched = json.loads(processed_data.decode("utf-8"))
