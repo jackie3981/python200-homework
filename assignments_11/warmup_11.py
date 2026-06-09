@@ -19,7 +19,7 @@ No, I would NOT decorate it with @task. Why not:
 """
 
 # Prefect Question 2
-# @task(retries=3, retry_delay_seconds=30)
+# @task(name="call_api", retries=3, retry_delay_seconds=30)
 
 # Prefect Question 3
 """
