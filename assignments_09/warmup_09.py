@@ -45,9 +45,10 @@ CAUSE 1: You haven't run 'az login' recently
     - 'az login' sessions expire after a period of inactivity
     - To diagnose: run 'az login' again and test your script
 
-CAUSE 2: Your account does not have permissions on the subscription
-    - Your account may be authenticated but does not have access to resources
-    - To diagnose: check in the Azure Portal that your user has the necessary roles on the subscription (like 'Reader')
+CAUSE 2: You are authenticated in the wrong tenant
+    - You logged in with an account from tenant A but are trying to access resources in tenant B
+    - DefaultAzureCredential cannot acquire a valid token for that tenant
+    - To diagnose: run 'az account show' to verify which tenant you are currently authenticated against
 
 If your script fails, first confirm that 'az login' works, then check your account permissions on the subscription.
 """
